@@ -1,0 +1,40 @@
+{
+  "name": "tradernet-mcp-codex",
+  "version": "1.0.0",
+  "description": "Connect Codex to Tradernet over MCP with safe workflows for quotes, portfolio data, orders, reports, tariffs, and SID session refresh.",
+  "author": {
+    "name": "Tradernet",
+    "url": "https://tradernet.com/"
+  },
+  "homepage": "https://tradernet.com/tradernet-api/mcp",
+  "license": "MIT",
+  "keywords": [
+    "tradernet",
+    "trading",
+    "fintech",
+    "mcp",
+    "stocks",
+    "brokerage"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Tradernet MCP",
+    "shortDescription": "Use Tradernet API tools from Codex",
+    "longDescription": "Tradernet MCP connects Codex to Tradernet over Streamable HTTP. It exposes market data, portfolio reads, orders, tariffs, reports, watchlists, alerts, and SID-based session utilities. The plugin keeps secrets in environment variables and includes safety guidance for real-account actions.",
+    "developerName": "Tradernet",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://tradernet.com/tradernet-api/mcp",
+    "defaultPrompt": [
+      "Check TSLA quotes and recent Tradernet news",
+      "Refresh my Tradernet SID for Codex",
+      "Show my Tradernet portfolio snapshot"
+    ],
+    "logo": "./assets/logo.svg",
+    "brandColor": "#0A84FF"
+  }
+}

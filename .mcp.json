@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "TN": {
+      "url": "https://tradernet.com/mcp/tn",
+      "env_http_headers": {
+        "X-TN-API-Key": "TN_API_KEY",
+        "X-TN-API-Secret": "TN_API_SECRET",
+        "X-TN-SID": "TN_SID"
+      },
+      "default_tools_approval_mode": "auto",
+      "tools": {
+        "orders_put": { "approval_mode": "prompt" },
+        "orders_delete": { "approval_mode": "prompt" },
+        "orders_set_stop_loss": { "approval_mode": "prompt" },
+        "tariff_select": { "approval_mode": "prompt" },
+        "alerts_add": { "approval_mode": "prompt" },
+        "alerts_delete": { "approval_mode": "prompt" },
+        "quotes_add_list": { "approval_mode": "prompt" },
+        "quotes_add_list_ticker": { "approval_mode": "prompt" },
+        "quotes_delete_list": { "approval_mode": "prompt" },
+        "quotes_delete_list_ticker": { "approval_mode": "prompt" },
+        "quotes_update_list": { "approval_mode": "prompt" },
+        "quotes_make_list_selected": { "approval_mode": "prompt" },
+        "reports_upload_file": { "approval_mode": "prompt" },
+        "auth_by_login": { "approval_mode": "prompt" },
+        "auth_by_sms": { "approval_mode": "prompt" },
+        "switch_to_connected_user": { "approval_mode": "prompt" }
+      }
+    }
+  }
+}

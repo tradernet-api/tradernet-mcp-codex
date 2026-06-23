@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Tradernet MCP">
+  <rect width="128" height="128" rx="28" fill="#0B1F3A"/>
+  <path d="M24 84 L52 52 L72 72 L104 36" fill="none" stroke="#2EC4B6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="104" cy="36" r="7" fill="#2EC4B6"/>
+  <text x="64" y="112" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">TN</text>
+</svg>
