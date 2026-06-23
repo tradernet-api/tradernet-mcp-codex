@@ -34,7 +34,6 @@
       "Refresh my Tradernet SID for Codex",
       "Show my Tradernet portfolio snapshot"
     ],
-    "logo": "./assets/logo.svg",
     "brandColor": "#0A84FF"
   }
 }

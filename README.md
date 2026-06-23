@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="assets/logo.svg" alt="Tradernet MCP" width="280">
-
 # Tradernet MCP for Codex
 
 **Connect [OpenAI Codex](https://openai.com/codex) to the Tradernet API over [Model Context Protocol](https://modelcontextprotocol.io/).**
@@ -56,7 +54,6 @@ The plugin exposes ~**61 tools** for quotes, historical candles, market referenc
 | `.codex-plugin/plugin.json` | Codex plugin manifest |
 | `.mcp.json` | Codex MCP server config for `TN` |
 | `skills/tradernet-mcp/SKILL.md` | Codex workflow, SID refresh, and safety guidance |
-| `assets/logo.svg` | Plugin logo |
 
 ## Requirements
 
