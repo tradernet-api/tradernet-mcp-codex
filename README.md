@@ -1,4 +1,6 @@
-<div align="center">
+---
+title: Tradernet MCP for Codex
+---
 
 # Tradernet MCP for Codex
 
@@ -12,8 +14,6 @@
 
 [Tradernet API docs](https://tradernet.com/tradernet-api/mcp) ·
 [Report issue](https://github.com/tradernet-api/tradernet-mcp-codex/issues)
-
-</div>
 
 ---
 
