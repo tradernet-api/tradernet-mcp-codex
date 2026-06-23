@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tradernet MCP — Codex plugin</title>
+<meta name="description" content="Connect Codex to the Tradernet API over MCP (Streamable HTTP). Quotes, portfolio, orders, tariffs and reports, with per-tool approval prompts for write/trade actions.">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<style>
+  :root{
+    --bg:#0a0f1a; --panel:#0f1726; --line:#1c2740; --text:#e9eefb; --muted:#9fb0d0;
+    --accent:#0A84FF; --accent2:#0a6ad6; --code:#070d1a; --danger:#ff5d5d;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  header.hero{padding:64px 0 40px;background:
+    radial-gradient(1200px 400px at 50% -10%, rgba(10,132,255,.20), transparent 60%),
+    linear-gradient(180deg,#0a1322,#0a0f1a)}
+  .badge{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent);border:1px solid var(--accent2);border-radius:999px;padding:4px 12px;margin-bottom:18px}
+  .hero-row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .hero-row img{height:64px;border-radius:14px;background:#fff;padding:10px 14px;
+    box-shadow:0 8px 30px rgba(0,0,0,.4)}
+  h1{font-size:38px;margin:0 0 6px;line-height:1.15}
+  .tag{color:var(--muted);font-size:18px;margin:0}
+  .cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:11px 18px;border-radius:10px;font-weight:600;font-size:15px}
+  .btn.primary{background:var(--accent);color:#04122b}
+  .btn.primary:hover{background:#2b97ff;text-decoration:none}
+  .btn.ghost{border:1px solid var(--line);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--accent2);text-decoration:none}
+  section{padding:34px 0;border-top:1px solid var(--line)}
+  h2{font-size:24px;margin:0 0 14px}
+  h3{font-size:17px;margin:24px 0 8px;color:#cfe0ff}
+  p{margin:0 0 14px}
+  .muted{color:var(--muted)}
+  .alert{border:1px solid;border-radius:12px;padding:14px 16px;margin:16px 0;background:rgba(255,93,93,.07);
+    border-color:rgba(255,93,93,.4)}
+  .alert.warn{background:rgba(10,132,255,.10);border-color:rgba(10,132,255,.4)}
+  table{width:100%;border-collapse:collapse;margin:8px 0 18px;font-size:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;
+    background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:16px;overflow:auto;margin:0 0 16px}
+  pre code{background:none;padding:0;font-size:13px;color:#d6e2ff}
+  ol,ul{margin:0 0 16px;padding-left:22px}
+  li{margin:6px 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:8px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .card h3{margin:0 0 6px;color:#fff}
+  .card p{margin:0;color:var(--muted);font-size:14px}
+  .switch{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .pill{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+  .pill.active{color:#04122b;background:var(--accent);border-color:var(--accent)}
+  footer{padding:40px 0 60px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+  .kbd{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">Codex plugin</span>
+    <div class="hero-row">
+      <img src="logo.svg" alt="Tradernet MCP logo">
+      <div>
+        <h1>Tradernet MCP for Codex</h1>
+        <p class="tag">Tradernet API tools in Codex, over Model Context Protocol with per-tool approvals.</p>
+      </div>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/tradernet-api/tradernet-mcp-codex">View on GitHub</a>
+      <a class="btn ghost" href="#install">Install</a>
+      <a class="btn ghost" href="https://tradernet.com/tradernet-api/mcp">API docs</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section style="border-top:none">
+    <p>Connects Codex to the Tradernet API through
+      <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> over Streamable HTTP.
+      Exposes tools for quotes, historical candles, market references, news, portfolio reads, orders,
+      reports, tariffs, watchlists, alerts and SID-based session utilities.</p>
+    <div class="alert">
+      <strong>Real account.</strong> Tradernet MCP operates against a real Tradernet account. Orders,
+      tariffs, uploads, watchlist edits, alerts and account-switching actions can affect real account state.
+    </div>
+    <div class="switch">
+      <a class="pill" href="https://tradernet-api.github.io/tradernet-mcp/">Cursor</a>
+      <a class="pill" href="https://tradernet-api.github.io/tradernet-mcp-claude/">Claude Desktop</a>
+      <span class="pill active">Codex</span>
+    </div>
+  </section>
+
+  <section id="inside">
+    <h2>Contents</h2>
+    <div class="grid">
+      <div class="card"><h3>Plugin manifest</h3><p><code>.codex-plugin/plugin.json</code> — Codex plugin metadata and interface.</p></div>
+      <div class="card"><h3>MCP server</h3><p><code>.mcp.json</code> — server <code>TN</code> with <code>env_http_headers</code> and per-tool approval modes.</p></div>
+      <div class="card"><h3>Skill</h3><p><code>skills/tradernet-mcp/SKILL.md</code> — workflow, SID refresh and safety guidance.</p></div>
+      <div class="card"><h3>Logo</h3><p><code>assets/logo.svg</code>.</p></div>
+    </div>
+  </section>
+
+  <section id="requirements">
+    <h2>Requirements</h2>
+    <ol>
+      <li>A Tradernet account with API access.</li>
+      <li>A Tradernet API key pair from <a href="https://tradernet.com/tradernet-api/auth-api">tradernet.com/tradernet-api/auth-api</a>.</li>
+      <li>Codex with plugin and MCP support.</li>
+      <li>Environment variables for credentials.</li>
+    </ol>
+  </section>
+
+  <section id="secrets">
+    <h2>Secrets (env only)</h2>
+    <p>Do not put secrets in the repo or plugin files. Use environment variables in
+      <code>~/.config/tn-mcp/credentials.env</code> (chmod 600):</p>
+<pre><code>export TN_API_KEY="your-api-key"
+export TN_API_SECRET="your-api-secret"
+export TN_LOGIN="user@example.com"
+export TN_PASSWORD="your-password"</code></pre>
+    <h3>SID cache</h3>
+    <p><code>TN_SID</code> is optional — most HMAC tools use <code>TN_API_KEY</code> and <code>TN_API_SECRET</code>.
+      For Codex-local SID caching use <code>~/.codex/tn-mcp/session.env</code> (mode 600):</p>
+<pre><code>export TN_SID="session-id"</code></pre>
+  </section>
+
+  <section id="install">
+    <h2>MCP configuration</h2>
+    <p>The plugin ships this Codex MCP server config. It contains only environment variable
+      <em>names</em> — never credentials.</p>
+<pre><code>{
+  "mcpServers": {
+    "TN": {
+      "url": "https://tradernet.com/mcp/tn",
+      "env_http_headers": {
+        "X-TN-API-Key": "TN_API_KEY",
+        "X-TN-API-Secret": "TN_API_SECRET",
+        "X-TN-SID": "TN_SID"
+      }
+    }
+  }
+}</code></pre>
+    <p>Write/trade tools are pinned to <code>approval_mode: "prompt"</code> in <code>.mcp.json</code>, while the
+      default mode stays <code>auto</code> for read-only tools.</p>
+    <h3>Validate the plugin</h3>
+<pre><code>python3 ~/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py \
+  /path/to/tradernet-mcp-codex</code></pre>
+  </section>
+
+  <section id="security">
+    <h2>Safety model</h2>
+    <p>Read-only tools can run when requested:</p>
+    <ul>
+      <li>quotes, historical candles, news, market status</li>
+      <li>portfolio reads, report reads, tariff reads</li>
+    </ul>
+    <p>Write or trade tools require explicit confirmation (<code>approval_mode: "prompt"</code>):</p>
+    <ul>
+      <li>placing or canceling orders, stop-loss</li>
+      <li>changing tariffs, uploading files</li>
+      <li>editing alerts and watchlists</li>
+      <li>switching connected users</li>
+      <li>login or SMS authentication</li>
+    </ul>
+  </section>
+
+  <section id="data">
+    <h2>Data notes</h2>
+    <ul>
+      <li>Numbers often come back as strings (<code>"p": "10.08600000"</code>) — cast before math.</li>
+      <li><code>quotes_get_hloc</code> candle order is <code>[HIGH, LOW, OPEN, CLOSE]</code>; the ticker is a string (<code>"AAPL.US"</code>), not an array.</li>
+      <li>Large responses — use pagination and filters (<code>max_count</code>, date ranges).</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Tradernet MCP</strong> · Codex plugin ·
+      <a href="https://github.com/tradernet-api/tradernet-mcp-codex">GitHub</a> ·
+      <a href="https://tradernet.com/tradernet-api">API documentation</a></p>
+    <p class="kbd">Not investment advice. Operations run in your own Tradernet account. MIT License.</p>
+  </div>
+</footer>
+</body>
+</html>
